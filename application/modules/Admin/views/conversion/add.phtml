@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><?php echo $title;?></title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- site css -->
+    <link rel="stylesheet" href="/css/a.min.css">
+    <link href="/css/font-face.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/js/site.min.js"></script>
+</head>
+<body>
+<?php include APPLICATION_PATH."/application/modules/Admin/views/site/nav.phtml" ?>
+<div class="container-fluid">
+    <!--documents-->
+    <div class="row row-offcanvas row-offcanvas-left">
+        <?php include APPLICATION_PATH."/application/modules/Admin/views/site/header.phtml" ?>
+        <div class="col-xs-12 col-sm-9 content">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?php echo $title;?></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="content-row">
+                        <h2 class="content-row-title"><?php echo $title;?></h2>
+                        <div class="row">
+                            <form class="form-horizontal" method="post" action="/admin/conversion/add">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">控制器</label>
+                                    <div class="col-md-10">
+                                        <input type="text" required="" placeholder="菜单名称" id="controller" class="form-control" name="controller">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">操作器</label>
+                                    <div class="col-md-10">
+                                        <input type="text" required="" placeholder="链接" id="action" class="form-control" name="action">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">操作ID</label>
+                                    <div class="col-md-10">
+                                        <input type="text" required="" placeholder="alt" id="paraid" class="form-control" name="paraid">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">标题</label>
+                                    <div class="col-md-10">
+                                        <input type="text" required="" placeholder="排序" id="title" class="form-control" name="title">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">链接</label>
+                                    <div class="col-md-10">
+                                        <input type="text" required="" placeholder="排序" id="link" class="form-control" name="link">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">浏览数</label>
+                                    <div class="col-md-10">
+                                        <input type="text" required="" placeholder="排序" id="views" class="form-control" name="views">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">排序</label>
+                                    <div class="col-md-10">
+                                        <input type="text" required="" placeholder="排序" id="indexorder" class="form-control" name="indexorder">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <button class="btn btn-info" type="submit">添加</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- panel body -->
+            </div>
+        </div><!-- content -->
+    </div>
+</div>
+</body>
+</html>

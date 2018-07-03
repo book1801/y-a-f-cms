@@ -1,0 +1,62 @@
+<?php include APPLICATION_PATH."/application/views/site/header.phtml" ?>
+<div class="container-fluid">
+    <div class="col-md-12">
+        <ol class="breadcrumb breadcrumb-arrow">
+            <li><a href="<?php echo $mbnav[0]["link"]?>"><?php echo $mbnav[0]["txt"]?></a></li>
+            <li><a href="<?php echo $mbnav[1]["link"]?>"><?php echo $mbnav[1]["txt"]?></a></li>
+            <li class="active"><span><?php echo $mbnav[2]["txt"]?></span></li>
+        </ol>
+    </div>
+    <div class="col-xs-12 col-md-9 col-lg-9 col-sm-8 content">
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h1 class="text-center clearfix"><?php echo $article["title"];?></h1>
+                <div class="box-info  clearfix">
+                    <div class="col-xs-6 col-md-4">更新时间:<?php echo date("Y-m-d",$article["updated"])?></div>
+                    <div class="col-xs-6 col-md-4">发布时间:<?php echo date("Y-m-d",$article["pubdate"]);?></div>
+                    <div class="col-xs-12 col-md-4">分类：<a href="<?php echo \Until\Url::createurl("article","list",["categoryid"=>$article["id"],"page"=>1])?>"><?php echo $category["category"];?></a></div>
+                </div>
+                <div class="article clearfix">
+                    <?php echo $article["content"]?>
+                    <?php if($top_list){?>
+                        <p>这里有几个<?php echo $category['category'];?>推荐给大家，非常适合新手起步：</p>
+                        <ul>
+                            <?php foreach($top_list as $l){?>
+                                <li><a href="<?php echo $l["link"]?>"><?php echo $l["title"]?></a></li>
+                            <?php } ?>
+                        </ul>
+                    <?php } ?>
+                </div>
+            </div>
+         </div>
+    </div>
+    <div class="col-xs-12 col-md-3 col-lg-3 col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">aabbcc方法</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <?php foreach($category_list as $l){?>
+                        <li class="list-group-item"><span class="fa fa-archive"></span><a href="<?php echo \Until\Url::createurl("article","list",["categoryid"=>$l["id"],"page"=>"1"])?>"><?php echo $l["category"];?></a></li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel panel-default hidden-xs">
+            <div class="panel-heading">
+                <h3 class="panel-title">最近更新</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <?php foreach($article_new_list as $l){?>
+                        <li class="list-group-item"><a href="<?php echo \Until\Url::createurl("article","content",["id"=>$l["id"]]);?>"><?php echo $l['title'];?></a></li>
+                    <?php }?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<?php include APPLICATION_PATH."/application/views/site/footer.phtml" ?>

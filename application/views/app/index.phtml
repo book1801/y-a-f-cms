@@ -1,0 +1,104 @@
+<?php include APPLICATION_PATH."/application/views/site/header.phtml" ?>
+<div class="container-fluid">
+    <div class="col-xs-12 col-md-9 col-lg-9 col-sm-8 content">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <dl class="filter_list">
+                    <dt>系统：</dt>
+                    <?php foreach ($appcategory_list as $l){?>
+                        <dd><a href="<?php echo \Until\Url::createurl("app","list",["appcategoryid"=>$l["id"],"categoryid"=>"0","page"=>'1']);?>"><?php echo $l["category"]?></a></dd>
+                    <?php } ?>
+                    <dt>方式：</dt>
+                    <?php foreach ($category_list as $l){?>
+                        <dd><a href="<?php echo \Until\Url::createurl("app","list",["appcategoryid"=>"0","categoryid"=>$l["id"],"page"=>"1"]);?>"><?php echo $l["category"]?></a></dd>
+                    <?php } ?>
+                </dl>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">aabbcc排行榜</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <?php foreach($applist as $l){?>
+                    <li class="list-group-item row clearfix">
+                        <div class="app-info-thumb col-md-2 col-xs-12 text-center">
+                            <a href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>" title="<?php echo $l["appname"]?>">
+                                <img class="app-img-thumb" src="<?php echo $l["thumb"];?>" width="50" height="50" alt="<?php echo $l["appname"]?>" />
+                            </a>
+                        </div>
+                        <div class="app-info-intro col-md-7  col-xs-12 ">
+                            <div class="clearfix">
+                                <h3 class="app-name"><a href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>"><?php echo $l["appname"];?></a></h3>
+                                <div class="app-info-item"><span class="glyphicon glyphicon-phone"></span><?php echo $l['appcategory']?></div>
+                                <div class="app-info-item"><span class="glyphicon glyphicon-th-list"></span><?php echo $l["views"];?></div>
+                                <div class="app-info-item"><span class="glyphicon glyphicon-floppy-disk"></span><?php echo $l["size"]?></div>
+                            </div>
+                            <p><?php echo mb_substr(strip_tags($l['content']),0,50);?></p>
+                            <div class="app-date">
+                                <div class="left">发布时间：<?php echo date('Y-m-d',$l["pubdate"]);?></div>
+                                <div class="right">更新时间：<?php echo date('Y-m-d',$l["updated"]);?></div>
+                            </div>
+                        </div>
+
+                        <div class="app-link col-md-2 col-xs-12">
+                            <a rel="nofollow" class="btn btn-danger btn-block" href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>">下载</a>
+                        </div>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-xs-12 col-md-3 col-lg-3 col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">aabbcc项目推荐</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <?php foreach($top_list as $l){?>
+                        <li class="list-group-item"><a href="<?php echo $l["link"]?>"><?php echo $l['title'];?></a></li>
+                    <?php }?>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default hidden-xs">
+            <div class="panel-heading">
+                <h3 class="panel-title">asdfasdf</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <?php foreach($app_new_list as $l){?>
+                        <li class="list-group-item app-list text-center clearfix">
+                            <div class="app-list-box">
+                                <div class="app-line-open clearfix">
+                                    <div class="left"><a href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>"><?php echo $l['appname']?></a></div>
+                                    <div class="right"><?php echo $l['views']?>次</div>
+                                </div>
+                                <div class="app-line-close clearfix">
+                                    <div class="left">
+                                        <a href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>">
+                                            <img src="<?php echo $l['thumb']?>" alt='<?php echo $l['appname']?>'" width="50" height="50" />
+                                        </a>
+                                    </div>
+                                    <div class="right">
+                                        <div><a href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>"><?php echo $l['appname'];?></a></div>
+                                        <div><a href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>" class="btn btn-sm btn-primary">查看详情</a></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    <?php }?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<?php include APPLICATION_PATH."/application/views/site/footer.phtml" ?>

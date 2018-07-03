@@ -1,0 +1,130 @@
+<?php include APPLICATION_PATH."/application/views/site/header.phtml" ?>
+<div class="container-fluid">
+    <div class="col-xs-12 col-md-9 col-lg-9 col-sm-8 content">
+      <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="pricing">
+              <ul>
+                <li class="unit price-primary col-md-6 col-xs-12">
+                  <div class="price-title">
+                    <h3>asfasdf</h3>
+                  </div>
+                  <div class="price-body">
+                    <ul>
+                      <li><a href="">asdfasdf</a></li>
+                      <li><a href="">asdfasf</a></li>
+                    </ul>
+                  </div>
+                  <div class="price-foot">
+                    <a href="/article/" rel="nofollow" class="btn btn-primary">更多 >></a>
+                  </div>
+                </li>
+                <li class="unit price-success col-md-6 col-xs-12">
+                  <div class="price-title">
+                    <h3>asdfasdf</h3>
+                  </div>
+                  <div class="price-body">
+                    <ul>
+                      <li><a href="">asdfasdf</a></li>
+                    </ul>
+                  </div>
+                  <div class="price-foot">
+                    <a rel="nofollow" href="/app/" class="btn btn-success">更多 >></a>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+        </div>
+      </div>
+      <div class="panel panel-default clearfix">
+         <div class="panel-body">
+           <?php foreach($applist as $a){?>
+           <div class="col-md-2 col-xs-4">
+             <div class="thumbnail">
+               <a href="<?php echo \Until\Url::createurl("app","content",["id"=>$a['id']])?>" rel="nofollow"><img class="img-rounded" src="<?php echo $a['thumb'];?>" width="70" height="70" alt="<?php echo $a["appname"]?>"></a>
+               <div class="caption text-center">
+                 <h3><a href="<?php echo \Until\Url::createurl("app","content",["id"=>$a['id']])?>"><?php echo $a['appname'];?></a></h3>
+               </div>
+             </div>
+           </div>
+           <?php }?>
+         </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">aabbcc方法</h3>
+            </div>
+            <div class="panel-body">
+              <div class="col-md-6 col-xs-12">
+                <ul class="list-group">
+                  <?php foreach($article_recommend_list_p1 as $p1){?>
+                  <li class="list-group-item"><span class="badge badge-warning"><?php echo $p1["views"]?></span><a href="<?php echo \Until\Url::createurl("article","content",['id'=>$p1["id"]])?>"><?php echo $p1["title"];?></a></li>
+                  <?php } ?>
+                </ul>
+              </div>
+              <div class="col-md-6 col-xs-12">
+                <ul class="list-group">
+                  <?php foreach($article_recommend_list_p2 as $p2){?>
+                    <li class="list-group-item"><span class="badge badge-warning"><?php echo $p2["views"]?></span><a href="<?php echo \Until\Url::createurl("article","content",['id'=>$p2["id"]])?>"><?php echo $p2["title"];?></a></li>
+                  <?php }?>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3 col-lg-3 col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">aabbcc排行榜</h3>
+        </div>
+        <div class="panel-body small">
+          <ul class="bar-app-list-group">
+            <?php $rank=1;?>
+            <?php foreach($app_recommend_list as $l){?>
+            <li class="bar-app-list-item col-md-12 col-xs-12 clearfix">
+              <div class="col-md-6 col-xs-6 bar-app-list-item-thumb">
+                <a href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>"><img src="<?php echo $l["thumb"]?>" alt="<?php echo $l["appname"]?>" width="70" height="70" /></a>
+              </div>
+              <div class="col-md-6 col-xs-6">
+                <div class="app-item-info"><span class="badge badge-primary">第<?php echo $rank;?>名</span></div>
+                <div class="app-item-info"><a class="red" href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>"><?php echo $l["appname"]?><a/></div>
+                <div class="app-item-info"><a href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>#down">下载</a></div>
+              </div>
+            </li>
+            <?php $rank++; }?>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel panel-default hidden-xs">
+        <div class="panel-heading">
+          <h3 class="panel-title">最近更新</h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <?php foreach($article_list as $l) {?>
+            <li class="list-group-item"><a href="<?php echo \Until\Url::createurl("article","content",["id"=>$l["id"]])?>"><?php echo $l["title"]?></a></li>
+            <?php } ?>
+          </ul>
+        </div>
+      </div>
+    </div><!-- content -->
+    <?php if(count($flink_list) > 0){?>
+    <div class="col-md-12 col-lg-12 hidden-xs hidden-sm">
+      <div class="panel panel-default">
+        <div class="panel-heading"><span class="panel-title">友情链接</span></div>
+        <div class="panel-body">
+          <?php foreach($flink_list as $l){?>
+          <span><a href="<?php echo $l["link"]?>" target="_blank"><?php echo $l["word"]?></a></span>
+          <?php }?>
+        </div>
+      </div>
+    </div>
+    <?php }?>
+</div>
+<?php include APPLICATION_PATH."/application/views/site/footer.phtml" ?>

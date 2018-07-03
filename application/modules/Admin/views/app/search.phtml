@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><?php echo $title;?></title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- site css -->
+    <link rel="stylesheet" href="/css/a.min.css">
+    <link href="/css/font-face.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/js/site.min.js"></script>
+</head>
+<body>
+<?php include APPLICATION_PATH."/application/modules/Admin/views/site/nav.phtml" ?>
+<div class="container-fluid">
+    <!--documents-->
+    <div class="row row-offcanvas row-offcanvas-left">
+        <?php include APPLICATION_PATH."/application/modules/Admin/views/site/header.phtml" ?>
+        <div class="col-xs-12 col-sm-9 content">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?php echo $title;?></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="content-row clearfix">
+                        <div class="col-md-3">
+                            <a href="/admin/app/add" class="btn btn-primary btn-block">添加</a>
+                        </div>
+                    </div>
+
+                    <div class="content-row clearfix">
+                        <h3>搜索</h3>
+                        <form class="form-horizontal" method="get" class="form-horizontal" action="/admin/app/search">
+                            <table class="table table-hover">
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                            <select class="form-control input-sm" name="appcategoryid">
+                                                <?php foreach($appcategory_list as $l){?>
+                                                    <option value="<?php echo $l['id']?>" <?php if($l['id']==$appcategoryid) echo "selected";?>><?php echo $l["category"];?></option>
+                                                <?php } ?>
+                                                <option value="0" <?php if($appcategoryid==0) echo "selected";?>>全部</option>
+                                            </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <select class="form-control input-sm" name="categoryid">
+                                            <?php foreach($category_list as $l){?>
+                                            <option value="<?php echo $l["id"]?>" <?php if($categoryid==$l['id']) echo "selected";?>><?php echo $l["category"];?></option>
+                                            <?php }?>
+                                            <option value="0" <?php if($categoryid==0) echo "selected";?>>全部</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <select class="form-control input-sm"  name="status">
+                                            <option value="0" <?php if($status==0) echo "selected";?>>未发布</option>
+                                            <option value="1" <?php if($status==1) echo "selected";?>>已发布</option>
+                                            <option value="2" <?php if($status==2) echo "selected";?>>不限</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <button class="btn btn-info" type="submit">查询</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        </form>
+                    </div>
+
+                    <div class="content-row">
+                        <h2 class="content-row-title"><?php echo $title;?></h2>
+                        <div class="row">
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>序号</th>
+                                    <th>缩率图</th>
+                                    <th>App名称</th>
+                                    <th>标题</th>
+                                    <th>App分类</th>
+                                    <th>混合分类</th>
+                                    <th>系统</th>
+                                    <th>浏览数</th>
+                                    <th>更新时间</th>
+                                    <th>状态</th>
+                                    <th>编辑</th>
+                                </tr>
+                                <tr>
+                                    <?php $i=1; foreach($list as $l){?>
+                                        <tr>
+                                            <td><?php echo $i;?></td>
+                                            <td><img src="<?php echo $l['thumb']?>" width="50" height="50"></td>
+                                            <td><?php echo $l['appname']?></td>
+                                            <td><?php echo $l['title']?></td>
+                                            <td><?php echo $l['appcategory'];?></td>
+                                            <td><?php echo $l['articlecategory']?></td>
+                                            <td><?php echo $l['system']?></td>
+                                            <td><?php echo $l['views'];?></td>
+                                            <td><?php echo date('Y-m-d h:i:s',$l['pubdate']);?></td>
+                                            <td>
+                                                <?php if($l['status'] >0) echo "<label  style='color:#DA4453'>已发布</label>"; else echo "<label style='color:#8CC152'>未发布</label>";?>
+                                            </td>
+                                            <td>
+                                                <div class="col-md-6"><a href="/admin/app/edit/id/<?php echo $l['id'];?>" class="btn btn-primary btn-block glyphicon glyphicon-pencil">编辑</a></div>
+                                                <div class="col-md-6"><a href="/admin/app/del/id/<?php echo $l['id'];?>" class="btn btn-danger btn-block glyphicon glyphicon-remove">删除</a></div>
+                                            </td>
+                                        </tr>
+                                    <?php $i++;} ?>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="11">
+                                        <div class="row content-row-pagination">
+                                            <div class="col-md-12">
+                                                <ul class="pagination">
+                                                    <?php if(($page -1) > 0) {?>
+                                                        <li class="active"><a href="/admin/app/search?appcategoryid=<?php echo $appcategoryid;?>&categoryid=<?php echo $categoryid;?>&status=<?php echo $status;?>&page=<?php echo $page -1;?>" class="fa fa-chevron-left" title="上一页"></a></li>
+                                                    <?php }else{?>
+                                                        <li class="disabled"><a href="/admin/app/search?appcategoryid=<?php echo $appcategoryid;?>&categoryid=<?php echo $categoryid;?>&status=<?php echo $status;?>&page=1" class="fa fa-chevron-left" title="上一页"></a></li>
+                                                    <?php } ?>
+
+                                                    <?php foreach($pageplay as $p){?>
+                                                        <li<?php if($p["page"]==$page) echo ' class="active"';?>><a href="<?php echo $p["link"]?>"><?php echo $p["page"];?></a></li>
+                                                    <?php } ?>
+
+                                                    <?php if(($page + 1) > count($pageplay)) {?>
+                                                        <li class="disabled"><a href="/admin/app/search?appcategoryid=<?php echo $appcategoryid;?>&categoryid=<?php echo $categoryid;?>&status=<?php echo $status;?>&page=<?php echo count($pageplay);?>" class="fa fa-chevron-right" title="下一页"></a></li>
+                                                    <?php }else{?>
+                                                        <li class="active"><a href="/admin/app/search?appcategoryid=<?php echo $appcategoryid;?>&categoryid=<?php echo $categoryid;?>&status=<?php echo $status;?>&page=<?php echo $page + 1;?>" class="fa fa-chevron-right" title="下一页"></a></li>
+                                                    <?php } ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div><!-- panel body -->
+            </div>
+        </div><!-- content -->
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><?php echo $title;?></title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- site css -->
+    <link rel="stylesheet" href="/css/a.min.css">
+    <link href="/css/font-face.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/js/site.min.js"></script>
+</head>
+<body>
+<?php include APPLICATION_PATH."/application/modules/Admin/views/site/nav.phtml" ?>
+<div class="container-fluid">
+    <!--documents-->
+    <div class="row row-offcanvas row-offcanvas-left">
+        <?php include APPLICATION_PATH."/application/modules/Admin/views/site/header.phtml" ?>
+        <div class="col-xs-12 col-sm-9 content">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?php echo $title;?></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="content-row clearfix">
+                        <div class="col-md-3">
+                            <a href="/admin/article/add" class="btn btn-primary btn-block">添加</a>
+                        </div>
+                    </div>
+
+                    <div class="content-row clearfix">
+                        <h3>搜索</h3>
+                        <form class="form-horizontal" method="get" class="form-horizontal" action="/admin/article/search">
+                            <table class="table table-hover">
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <select class="form-control input-sm" name="categoryid">
+                                            <?php foreach($category_list as $l){?>
+                                            <option value="<?php echo $l["id"]?>" <?php if($categoryid==$l['id']) echo "selected";?>><?php echo $l["category"];?></option>
+                                            <?php }?>
+                                            <option value="0" <?php if($categoryid==0) echo "selected";?>>全部</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" value="<?php echo $searchword;?>" class="form-control input-sm"  name="searchword">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <button class="btn btn-info" type="submit">查询</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        </form>
+                    </div>
+
+                    <div class="content-row">
+                        <h2 class="content-row-title"><?php echo $title;?></h2>
+                        <div class="row">
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>序号</th>
+                                    <th>分类</th>
+                                    <th>标题</th>
+                                    <th>关键字</th>
+                                    <th>推荐数</th>
+                                    <th>浏览数</th>
+                                    <th>发布时间</th>
+                                    <th>更新时间</th>
+                                    <th>编辑</th>
+                                </tr>
+                                <tr>
+                                    <?php $i=1; foreach($list as $l){?>
+                                <tr>
+                                    <td><?php echo $i;?></td>
+                                    <td><?php echo $l['category']?></td>
+                                    <td><?php echo $l['title']?></td>
+                                    <td><?php echo $l['keyword'];?></td>
+                                    <td><?php echo $l['recommend']?></td>
+                                    <td><?php echo $l['views']?></td>
+                                    <td><?php echo date('Y-m-d h:i:s',$l['pubdate']);?></td>
+                                    <td><?php echo date('Y-m-d h:i:s',$l['updated']);?></td>
+                                    <td>
+                                        <div class="col-md-6"><a href="/admin/article/edit/id/<?php echo $l['id'];?>" class="btn btn-primary btn-block glyphicon glyphicon-pencil">编辑</a></div>
+                                        <div class="col-md-6"><a href="/admin/article/del/id/<?php echo $l['id'];?>" class="btn btn-danger btn-block glyphicon glyphicon-remove">删除</a></div>
+                                    </td>
+                                </tr>
+                                <?php $i++;} ?>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="11">
+                                        <div class="row content-row-pagination">
+                                            <div class="col-md-12">
+                                                <ul class="pagination">
+                                                    <?php if(($page -1) > 0) {?>
+                                                        <li class="active"><a href="/admin/article/search?categoryid=<?php echo $categoryid?>&searchword=<?php echo $searchword;?>&page=<?php echo $page -1;?>" class="fa fa-chevron-left" title="上一页"></a></li>
+                                                    <?php }else{?>
+                                                        <li class="disabled"><a href="/admin/article/search?categoryid=<?php echo $categoryid?>&searchword=<?php echo $searchword;?>&page=1" class="fa fa-chevron-left" title="上一页"></a></li>
+                                                    <?php } ?>
+
+                                                    <?php foreach($pageplay as $p){?>
+                                                        <li<?php if($p["page"]==$page) echo ' class="active"';?>><a href="<?php echo $p["link"]?>"><?php echo $p["page"];?></a></li>
+                                                    <?php } ?>
+
+                                                    <?php if(($page + 1) > count($pageplay)) {?>
+                                                        <li class="disabled"><a href="/admin/article/search?categoryid=<?php echo $categoryid?>&searchword=<?php echo $searchword;?>&page=<?php echo count($pageplay);?>" class="fa fa-chevron-right" title="下一页"></a></li>
+                                                    <?php }else{?>
+                                                        <li class="active"><a href="/admin/article/search?categoryid=<?php echo $categoryid?>&searchword=<?php echo $searchword;?>&page=<?php echo $page + 1;?>" class="fa fa-chevron-right" title="下一页"></a></li>
+                                                    <?php } ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div><!-- panel body -->
+            </div>
+        </div><!-- content -->
+    </div>
+</div>
+</body>
+</html>

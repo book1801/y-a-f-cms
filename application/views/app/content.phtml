@@ -1,0 +1,105 @@
+<?php include APPLICATION_PATH."/application/views/site/header.phtml" ?>
+<div class="container-fluid">
+    <div class="col-md-12">
+        <ol class="breadcrumb breadcrumb-arrow">
+            <li><a href="<?php echo $mbnav[0]["link"]?>"><?php echo $mbnav[0]["txt"]?></a></li>
+            <li><a href="<?php echo $mbnav[1]["link"]?>"><?php echo $mbnav[1]["txt"]?></a></li>
+            <li class="active"><span><?php echo $mbnav[2]["txt"]?></span></li>
+        </ol>
+    </div>
+    <div class="col-xs-12 col-md-9 col-lg-9 col-sm-8 content">
+                <div class="clearfix"><h1 class="text-center"><?php echo $ap["title"];?></h1></div>
+                <div class="col-md-12 box-info clearfix">
+                    <div class="col-md-2 app-thumb">
+                        <img src="<?php echo $ap['thumb']?>" alt="<?php echo $ap["appname"]?>" width="70" height="70" />
+                        <h2 class="text-center"><?php echo $ap["appname"];?></h2>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li>操作系统：<?php echo $ap['system']?></li>
+                            <li>软件版本：<?php echo $ap['version'];?></li>
+                            <li>大小：<?php echo $ap["size"];?></li>
+                            <li>相关分类：<a href="<?php echo \Until\Url::createurl("app","list",["appcategoryid"=>$ap["appcategoryid"],"categoryid"=>0,"page"=>1])?>"><?php echo $ap["appcategory"];?></a>、<a href="<?php echo \Until\Url::createurl("app","list",["appcategoryid"=>0,"categoryid"=>$ap["categoryid"],"page"=>1])?>"><?php echo $ap["articlecategory"];?></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <ul>
+                            <li>发布时间:<?php echo date("Y-m-d",$ap["pubdate"]);?></li>
+                            <li>最后更新:<?php echo date("Y-m-d",$ap["updated"])?></li>
+                            <li>浏览次数：<?php echo $ap['views'];?></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-12 clearfix">
+                    <div class="col-md-4 "><a href="" class="btn btn-danger btn-block">下载(电脑)</a></div>
+                    <div class="col-md-4 "><a href="" class="btn btn-danger btn-block">下载(安卓)</a></div>
+                    <div class="col-md-4 "><a href="" class="btn btn-danger btn-block">下载(苹果)</a></div>
+                </div>
+                <div class="col-md-12 clearfix">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><?php echo $ap["appname"]?>介绍</h3>
+                        </div>
+                        <div class="panel-body">
+                            <?php echo $ap["content"]?>
+                            <?php if($top_list){?>
+                                <p>这里有几个非常适合新手起步的<?php echo $pagetitle;?>项目推荐给大家：</p>
+                                <ul class="recommend-ul">
+                                    <?php foreach($top_list as $l){?>
+                                        <li><a href="<?php echo $l["link"]?>"><?php echo $l["title"]?></a></li>
+                                    <?php } ?>
+                                </ul>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    <div class="col-xs-12 col-md-3 col-lg-3 col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">aabbcc方法</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <?php foreach($category_list as $l){?>
+                        <li class="list-group-item"><span class="fa fa-archive"></span><a href="<?php echo \Until\Url::createurl("article","list",["categoryid"=>$l["id"],"page"=>"1"])?>"><?php echo $l["title"];?></a></li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel panel-default hidden-xs">
+            <div class="panel-heading">
+                <h3 class="panel-title">aabbcc软件</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <?php foreach($app_new_list as $l){?>
+                        <li class="list-group-item app-list text-center clearfix">
+                            <div class="app-list-box">
+                                <div class="app-line-open clearfix">
+                                    <div class="left"><a href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>"><?php echo $l['appname']?></a></div>
+                                    <div class="right"><?php echo $l['views']?>次</div>
+                                </div>
+                                <div class="app-line-close clearfix">
+                                    <div class="left">
+                                        <a href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>">
+                                            <img src="<?php echo $l['thumb']?>" alt='<?php echo $l['appname']?>'" width="50" height="50" />
+                                        </a>
+                                    </div>
+                                    <div class="right">
+                                        <div><a href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>"><?php echo $l['appname'];?></a></div>
+                                        <div><a href="<?php echo \Until\Url::createurl("app","content",["id"=>$l["id"]])?>" class="btn btn-sm btn-primary">查看详情</a></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    <?php }?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include APPLICATION_PATH."/application/views/site/footer.phtml" ?>
